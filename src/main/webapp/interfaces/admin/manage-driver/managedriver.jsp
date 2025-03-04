@@ -75,6 +75,53 @@
             margin-top: 10px;
         }
 
+        .driver-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 16px;
+            border: 2px;
+            text-align: left;
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .driver-table th,
+        .driver-table td {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+        }
+
+        .driver-table th {
+            background-color: #0066cc;
+            color: white;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .driver-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .driver-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .driver-table a {
+            text-decoration: none;
+            color: #0066cc;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .driver-table a:hover {
+            color: #004b99;
+            text-decoration: underline;
+        }
+
+
     </style>
 </head>
 <body>
@@ -88,6 +135,41 @@
     <%--  Existing Driver Table--%>
     <h3>Existing Drivers</h3>
 
+    <%
+        Connection conn = connectionProvider.getConnection();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM drivers");
+    %>
+
+    <table class="driver-table">
+        <tr>
+            <th>Driver Name</th>
+            <th>Mobile No</th>
+            <th>NIC No</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        <%
+            while (rs.next()) {
+        %>
+        <tr>
+            <td><%= rs.getString("name") %></td>
+            <td><%= rs.getString("phone") %></td>
+            <td><%= rs.getString("nic") %></td>
+            <td><%= rs.getString("status") %></td>
+            <td>
+                <a href="editdriver.jsp?id=<%= rs.getInt("id") %>">Edit</a> |
+                <a style="color: red" href="deletedriver.jsp?id=<%= rs.getInt("id") %>"onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+            </td>
+
+        </tr>
+        <%
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        %>
+    </table>
 
     <p><a href="../admin-dashboard.jsp" class="book-button">Back to Dashboard</a></p>
 </div>

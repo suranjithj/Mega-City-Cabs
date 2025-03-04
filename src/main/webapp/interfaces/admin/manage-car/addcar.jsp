@@ -134,8 +134,32 @@
       <label for="fee">Fee per 1KM:</label>
       <input type="text" id="fee" name="fee" required/><br/>
 
-      <label for="driverId">Driver Name:</label>
-      <input type="text" id="driverId" name="driverId" required/><br/>
+      <label for="driverId">Assign Driver:</label>
+      <select id="driverId" name="driverId" required>
+        <option value="">Select a Driver</option>
+        <%
+          Connection conn = null;
+          PreparedStatement ps = null;
+          ResultSet rs = null;
+
+          try {
+            conn = connectionProvider.getConnection();
+            ps = conn.prepareStatement("SELECT id, name FROM drivers WHERE status = 'Available'");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+        %>
+        <option value="<%= rs.getInt("id") %>"><%= rs.getString("name") %></option>
+        <%
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+          } finally {
+            if (rs != null) rs.close();
+            if (ps != null) ps.close();
+            if (conn != null) conn.close();
+          }
+        %>
+      </select><br/>
 
       <button type="submit">Add Car</button>
     </form>

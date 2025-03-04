@@ -139,7 +139,7 @@
                 <label for="carCategory">Car Category:</label>
                 <input type="text" id="carCategory" name="carCategory" value="<%= carCategory %>" required/><br/>
 
-                <label for="driverId">Driver Name:</label>
+                <label for="driverId">Driver ID:</label>
                 <input type="text" id="driverId" name="driverId" value="<%= driverId %>" required/><br/>
 
                 <label for="carNo">Car Number:</label>
