@@ -11,6 +11,16 @@
         <session-timeout>30</session-timeout> <!-- Set session timeout to 30 minutes -->
     </session-config>
 
+    <servlet>
+        <servlet-name>UpdateImageServlet</servlet-name>
+        <servlet-class>controllers.UpdateImageServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateImageServlet</servlet-name>
+        <url-pattern>/UpdateImageServlet</url-pattern>
+    </servlet-mapping>
+
     <!-- Auth Servlet -->
     <servlet>
         <servlet-name>AuthServlet</servlet-name>
