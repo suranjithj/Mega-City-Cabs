@@ -1,24 +1,27 @@
 package controllers;
 
 import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
+import jakarta.servlet.http.*;
 import java.io.IOException;
 
 public class LogoutServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L; //Serialization
+    private static final long serialVersionUID = 1L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        //Session Management
+        // Session Management
         HttpSession session = request.getSession(false);
         if (session != null) {
-            session.invalidate(); //Encapsulation
+            session.invalidate();
         }
-        response.sendRedirect("interfaces/login.jsp"); //Control Flow
+
+        Cookie usernameCookie = new Cookie("username", "");
+        usernameCookie.setMaxAge(0);
+        usernameCookie.setPath("/");
+        response.addCookie(usernameCookie);
+
+        response.sendRedirect("interfaces/login.jsp");
     }
 }
