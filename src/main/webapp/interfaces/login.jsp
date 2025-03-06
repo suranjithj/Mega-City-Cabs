@@ -15,8 +15,8 @@
       margin: 0;
       padding: 0;
       color: #333;
-
     }
+
     .container {
       width: 100vw;
       max-width: 100%;
@@ -81,7 +81,7 @@
     }
 
     button:hover,
-    .book-button:hover{
+    .book-button:hover {
       background-color: #004b99;
     }
 
@@ -96,25 +96,68 @@
       margin-top: 10px;
       margin-bottom: 50px;
     }
-
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>Login</h2>
-    <form action="../auth" method="post" class="add-form">
-      <label for="username">Username:</label>
-      <input type="text" name="username" id="username" required/><br/>
-      <label for="password">Password:</label>
-      <input type="password" name="password" id="password" required/><br/>
-      <button type="submit">Login</button>
-    </form>
-    <p>Not Registered? Click <a href="register.jsp" style="color: #0066cc; font-weight: bold">Register</a></p>
-    <p style="color:red;">
-      ${error != null ? error : ""}
-    </p>
+<div class="container">
+  <h2>Login</h2>
+  <form action="../auth" method="post" class="add-form" onsubmit="storeLoginData()">
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" required/><br/>
 
-    <p><a href="../index.jsp" class="book-button">Back to Home</a> </p>
-  </div>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" required/><br/>
+
+    <label>
+      <input type="checkbox" id="rememberMe"> Remember Me
+    </label>
+
+    <button type="submit">Login</button>
+  </form>
+
+  <p>Not Registered? Click <a href="register.jsp" style="color: #0066cc; font-weight: bold">Register</a></p>
+  <p style="color:red;">
+    ${error != null ? error : ""}
+  </p>
+
+  <p><a href="../index.jsp" class="book-button">Back to Home</a></p>
+</div>
+
+<script>
+  window.onload = function () {
+    let storedUsername = localStorage.getItem("rememberedUsername") || getCookie("username");
+
+    if (storedUsername) {
+      document.getElementById("username").value = storedUsername;
+      document.getElementById("rememberMe").checked = true;
+    }
+  };
+
+  function storeLoginData() {
+    let username = document.getElementById("username").value;
+    let rememberMe = document.getElementById("rememberMe").checked;
+
+    if (rememberMe) {
+      localStorage.setItem("rememberedUsername", username);
+      document.cookie = "username=" + username + "; path=/;";
+    } else {
+      localStorage.removeItem("rememberedUsername");
+      document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
+
+    sessionStorage.setItem("isLoggedIn", "true");
+  }
+
+  function getCookie(name) {
+    let cookies = document.cookie.split("; ");
+    for (let i = 0; i < cookies.length; i++) {
+      let cookie = cookies[i].split("=");
+      if (cookie[0] === name) {
+        return cookie[1];
+      }
+    }
+    return null;
+  }
+</script>
 </body>
 </html>
