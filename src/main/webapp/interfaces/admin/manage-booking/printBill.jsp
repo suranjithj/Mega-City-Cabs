@@ -6,8 +6,8 @@
 <html>
 <head>
     <title>Print Bill</title>
-    <link rel="stylesheet" href="../../../assets/styles/carstyle.css">
-    <link rel="stylesheet" type="text/css" href="../../../assets/styles/main.css">
+    <link rel="stylesheet" href="../../assets/styles/carstyle.css">
+    <link rel="stylesheet" type="text/css" href="../../assets/styles/main.css">
     <style>
         .bill-table {
             width: 100%;
@@ -27,22 +27,26 @@
 <body>
 <h2>Print Bill for Booking ID: <%= request.getParameter("id") %></h2>
 
-<% // Encapsulation
+<%
+    // Get the booking ID from the request parameter
     int bookingId = Integer.parseInt(request.getParameter("id"));
 
+    // Database connection to fetch booking details
     Connection conn = connectionProvider.getConnection();
     PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM bookings WHERE booking_id = ?");
     pstmt.setInt(1, bookingId);
     ResultSet rs = pstmt.executeQuery();
 
     if (rs.next()) {
+        // Extract details from the result set
         String customerName = rs.getString("customer_name");
         String pickupLocation = rs.getString("pickup_location");
         String destination = rs.getString("destination");
         double fare = rs.getDouble("fee");
-        double tax = fare * 0.1;
-        double totalAmount = fare + tax;
-        double billAmount = rs.getDouble("bill");
+        double discount = fare * 0.05; // 5% discount
+        double tax = (fare - discount) * 0.1; // 10% tax
+        double totalAmount = (fare - discount) + tax; // Total bill with tax
+        double billAmount = rs.getDouble("bill"); // Bill from the database
 %>
 
 <h3>Customer Information</h3>
@@ -60,8 +64,12 @@
         <td><%= destination %></td>
     </tr>
     <tr>
-        <th>Fare (LKR)</th>
+        <th>Fee (LKR)</th>
         <td><%= fare %></td>
+    </tr>
+    <tr>
+        <th>Discount (5%)</th>
+        <td><%= discount %></td>
     </tr>
     <tr>
         <th>Tax (10%)</th>
@@ -69,7 +77,8 @@
     </tr>
     <tr>
         <th>Total Amount (LKR)</th>
-        <td><%= totalAmount %></td>
+        <td>(<%= fare %> - <%= discount %>) + <%= tax %> <br>
+            = <%= totalAmount %></td>
     </tr>
     <tr>
         <th>Bill Amount (LKR)</th>
@@ -81,14 +90,18 @@
     } else {
         out.println("<p>No booking found with this ID.</p>");
     }
-    // Modularity
+
+    // Close resources
     rs.close();
     pstmt.close();
     conn.close();
 %>
 
+<!-- Button to print the bill -->
 <br><br>
 <button onclick="window.print()">Print Bill</button><br><br>
+
+<a href="customer-dashboard.jsp">Back to Dashboard</a>
 
 </body>
 </html>
