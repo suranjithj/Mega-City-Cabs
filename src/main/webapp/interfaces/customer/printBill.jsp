@@ -43,8 +43,9 @@
         String pickupLocation = rs.getString("pickup_location");
         String destination = rs.getString("destination");
         double fare = rs.getDouble("fee");
-        double tax = fare * 0.1; // Tax of 10%
-        double totalAmount = fare + tax; // Total bill with tax
+        double discount = fare * 0.05; // 5% discount
+        double tax = (fare - discount) * 0.1; // 10% tax
+        double totalAmount = (fare - discount) + tax; // Total bill with tax
         double billAmount = rs.getDouble("bill"); // Bill from the database
 %>
 
@@ -63,8 +64,12 @@
         <td><%= destination %></td>
     </tr>
     <tr>
-        <th>Fare (LKR)</th>
+        <th>Fee (LKR)</th>
         <td><%= fare %></td>
+    </tr>
+    <tr>
+        <th>Discount (5%)</th>
+        <td><%= discount %></td>
     </tr>
     <tr>
         <th>Tax (10%)</th>
@@ -72,7 +77,8 @@
     </tr>
     <tr>
         <th>Total Amount (LKR)</th>
-        <td><%= totalAmount %></td>
+        <td>(<%= fare %> - <%= discount %>) + <%= tax %> <br>
+            = <%= totalAmount %></td>
     </tr>
     <tr>
         <th>Bill Amount (LKR)</th>
