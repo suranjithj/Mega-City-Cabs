@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
+    //Validation
     public User validateUser(String username, String password) {
         User user = null;
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -41,6 +42,12 @@ public class UserDAO {
 
     public boolean registerUser(User user) {
         boolean success = false;
+
+        // Check if the user already exists
+        if (isUserExists(user.getUsername(), user.getEmail())) {
+            return false;
+        }
+
         String query = "INSERT INTO users(username, name, address, phone, nic, email, password) VALUES(?,?,?,?,?,?,?)";
 
         try (Connection con = DatabaseConnection.initializeDatabase();
@@ -62,4 +69,25 @@ public class UserDAO {
         }
         return success;
     }
+
+    // Method user already exists
+    private boolean isUserExists(String username, String nic) {
+        String query = "SELECT id FROM users WHERE username = ? OR nic = ?";
+        try (Connection con = DatabaseConnection.initializeDatabase();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, username);
+            ps.setString(2, nic);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                return rs.next();
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
 }
