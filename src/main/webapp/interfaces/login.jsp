@@ -101,6 +101,19 @@
 <body>
 <div class="container">
   <h2>Login</h2>
+
+  <%
+    String message = (String) request.getAttribute("message");
+    String messageType = (String) request.getAttribute("messageType");
+    if (message != null) {
+  %>
+  <p style="color: <%= "success".equals(messageType) ? "green" : "red" %>;">
+    <%= message %>
+  </p>
+  <%
+    }
+  %>
+
   <form action="../auth" method="post" class="add-form" onsubmit="storeLoginData()">
     <label for="username">Username:</label>
     <input type="text" name="username" id="username" required/><br/>

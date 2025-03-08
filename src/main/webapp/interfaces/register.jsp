@@ -101,30 +101,41 @@
 </head>
 <body>
 
-  <div class="container">
-    <h2>Register as a Customer</h2>
+<div class="container">
+  <h2>Register as a Customer</h2>
 
-    <form action="../register" method="post" class="add-form">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" required/><br/>
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="name" required/><br/>
-      <label for="address">Address:</label>
-      <input type="text" id="address" name="address" required/><br/>
-      <label for="phone">Phone:</label>
-      <input type="text" id="phone" name="phone" required/><br/>
-      <label for="nic">NIC:</label>
-      <input type="text" id="nic" name="nic" required/><br/>
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required/><br/>
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required/><br/>
-      <button type="submit">Register</button>
-    </form>
+  <%
+    String error = (String) request.getAttribute("error");
+    if (error != null) {
+  %>
+  <p style="color: <%= "error".equals(error) ? "green" : "red" %>;">
+    <%= error %>
+  </p>
+  <%
+    }
+  %>
 
-    <p>Already Have an Account? Click <a href="login.jsp" style="color: #0066cc; font-weight: bold">Login</a></p>
-    <p><a href="login.jsp" class="book-button">Back to Login</a></p>
-  </div>
+  <form action="../register" method="post" class="add-form">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required/><br/>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required/><br/>
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required/><br/>
+    <label for="phone">Phone:</label>
+    <input type="text" id="phone" name="phone" required/><br/>
+    <label for="nic">NIC:</label>
+    <input type="text" id="nic" name="nic" required/><br/>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required/><br/>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required/><br/>
+    <button type="submit">Register</button>
+  </form>
+
+  <p>Already Have an Account? Click <a href="login.jsp" style="color: #0066cc; font-weight: bold">Login</a></p>
+  <p><a href="login.jsp" class="book-button">Back to Login</a></p>
+</div>
 
 </body>
 </html>
