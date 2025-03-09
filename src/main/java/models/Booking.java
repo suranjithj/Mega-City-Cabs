@@ -3,6 +3,7 @@ package models;
 import java.math.BigDecimal;
 
 public class Booking {
+    // Encapsulation
     private int id;
     private int customerId;
     private int driverId;
@@ -23,6 +24,8 @@ public class Booking {
         this.status = status;
     }
 
+    //getters and setters
+    // Encapsulation
     public int getId() {
         return id;
     }

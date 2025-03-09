@@ -142,7 +142,7 @@
       <label for="destination">Destination:</label>
       <input type="text" id="destination" name="destination" required/><br/>
 
-      <button type="submit">Book a Cab</button>
+      <button type="submit">Book Now</button>
     </form>
 
     <p><a href="../customer-dashboard.jsp" class="book-button">Back to Dashboard</a></p>

@@ -1,6 +1,7 @@
 package models;
 
 public class Car {
+    // Encapsulation
     private int id;
     private String driver_id;
     private String car_no;
@@ -21,6 +22,8 @@ public class Car {
         this.image = image;
     }
 
+    //getters and setters
+    // Encapsulation
     public int getId() {
         return id;
     }

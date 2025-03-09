@@ -214,7 +214,7 @@
       <p><strong>LKR <%= rs.getString("fee") %> per KM</strong></p>
 
       <% if (isLoggedIn) { %>
-      <a href="interfaces/customer/Booking/booking.jsp?carId=<%= rs.getInt("id") %>" class="book-button">Book Now</a>
+      <a href="interfaces/customer/Booking/booking.jsp?carId=<%= rs.getInt("id") %>" class="book-button">Book This Cab</a>
       <% } else { %>
       <a href="interfaces/login.jsp" class="book-button">Login to Book</a>
       <% } %>
