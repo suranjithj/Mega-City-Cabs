@@ -4,8 +4,10 @@ import dao.UserDAO;
 import models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
-import java.io.IOException;
+import services.EmailService;
 
+import java.io.IOException;
+                            //Inheritance
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDAO userDAO = new UserDAO();
@@ -13,7 +15,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        // Polymorphism
         String username = request.getParameter("username");
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -34,6 +36,10 @@ public class RegisterServlet extends HttpServlet {
         boolean registered = userDAO.registerUser(user);
 
         if (registered) {
+            // Send email notification
+            EmailService.sendEmail(email, name, "Welcome to Mega City Cab!", "Thank you for registering.");
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            
             request.setAttribute("message", "Registration successful! Please login.");
             request.setAttribute("messageType", "success");
             request.getRequestDispatcher("interfaces/login.jsp").forward(request, response);

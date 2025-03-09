@@ -43,20 +43,20 @@
           <groupId>org.junit.jupiter</groupId>
           <artifactId>junit-jupiter-engine</artifactId>
           <version>5.10.0</version>
+          <scope>test</scope>
+      </dependency>
+      <dependency>
+          <groupId>org.junit.platform</groupId>
+          <artifactId>junit-platform-launcher</artifactId>
+          <version>1.10.0</version>
+          <scope>test</scope>
       </dependency>
 
       <!-- Latest Mockito -->
       <dependency>
           <groupId>org.mockito</groupId>
-          <artifactId>mockito-core</artifactId>
-          <version>5.10.0</version> <!-- Use the latest version -->
-          <scope>test</scope>
-      </dependency>
-
-      <dependency>
-          <groupId>org.mockito</groupId>
           <artifactId>mockito-junit-jupiter</artifactId>
-          <version>5.10.0</version> <!-- Use the latest version -->
+          <version>5.10.0</version>
           <scope>test</scope>
       </dependency>
 
@@ -98,6 +98,14 @@
           <version>${junit.version}</version>
           <scope>test</scope>
       </dependency>
+
+      <!--      mailjet -->
+      <dependency>
+          <groupId>com.mailjet</groupId>
+          <artifactId>mailjet-client</artifactId>
+          <version>5.2.0</version>
+      </dependency>
+
   </dependencies>
 
   <build>

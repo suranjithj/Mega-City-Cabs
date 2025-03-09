@@ -2,6 +2,7 @@ package models;
 
 public class User {
 
+    // Encapsulation
     private int id;
     private String username;
     private String name;
@@ -25,6 +26,8 @@ public class User {
     }
 
 
+    //getters and setters
+    // Encapsulation
     public int getId() {
         return id;
     }
