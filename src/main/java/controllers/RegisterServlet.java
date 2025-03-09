@@ -4,6 +4,8 @@ import dao.UserDAO;
 import models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
+import services.EmailService;
+
 import java.io.IOException;
                             //Inheritance
 public class RegisterServlet extends HttpServlet {
@@ -34,6 +36,10 @@ public class RegisterServlet extends HttpServlet {
         boolean registered = userDAO.registerUser(user);
 
         if (registered) {
+            // Send email notification
+            EmailService.sendEmail(email, name, "Welcome to Mega City Cab!", "Thank you for registering.");
+            response.setStatus(HttpServletResponse.SC_CREATED);
+            
             request.setAttribute("message", "Registration successful! Please login.");
             request.setAttribute("messageType", "success");
             request.getRequestDispatcher("interfaces/login.jsp").forward(request, response);
