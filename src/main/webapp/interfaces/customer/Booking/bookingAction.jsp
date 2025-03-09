@@ -1,6 +1,7 @@
 <%@ page import="java.sql.Connection, java.sql.PreparedStatement" %>
 <%@ page import="config.connectionProvider" %>
 <%@ page import="models.User" %>
+<%@ page import="services.EmailService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
@@ -45,6 +46,9 @@
             updateCarStmt.executeUpdate();
 
             conn.commit();
+
+            // Send booking confirmation email
+            EmailService.sendBookingConfirmation(currentUser.getEmail(), currentUser.getName(), pickupLocation, destination, carNo);
         %>
         <script>
             alert("Booking successful!");
