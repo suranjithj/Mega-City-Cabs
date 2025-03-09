@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.servlet.http.Cookie;
 
 import java.io.IOException;
-
+                        //Inheritance
 public class AuthServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDAO userDAO = new UserDAO();
@@ -20,6 +20,7 @@ public class AuthServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        // Polymorphism
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("rememberMe");

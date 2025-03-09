@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
-    //Validation
+    // Abstraction
     public User validateUser(String username, String password) {
         User user = null;
         String query = "SELECT * FROM users WHERE username = ? AND password = ?";
@@ -71,6 +71,7 @@ public class UserDAO {
     }
 
     // Method user already exists
+    // Abstraction
     private boolean isUserExists(String username, String nic) {
         String query = "SELECT id FROM users WHERE username = ? OR nic = ?";
         try (Connection con = DatabaseConnection.initializeDatabase();

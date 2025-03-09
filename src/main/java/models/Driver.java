@@ -1,6 +1,7 @@
 package models;
 
 public class Driver {
+    // Encapsulation
     private int id;
     private String name;
     private String phone;
@@ -17,6 +18,8 @@ public class Driver {
         this.status = status;
     }
 
+    //getters and setters
+    // Encapsulation
     public int getId() {
         return id;
     }

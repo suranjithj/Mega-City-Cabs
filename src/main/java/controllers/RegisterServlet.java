@@ -5,7 +5,7 @@ import models.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
 import java.io.IOException;
-
+                            //Inheritance
 public class RegisterServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private UserDAO userDAO = new UserDAO();
@@ -13,7 +13,7 @@ public class RegisterServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        // Polymorphism
         String username = request.getParameter("username");
         String name = request.getParameter("name");
         String address = request.getParameter("address");

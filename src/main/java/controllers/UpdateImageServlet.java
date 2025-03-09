@@ -20,17 +20,18 @@ import java.sql.ResultSet;
         maxFileSize = 1024 * 1024 * 10,      // Max file size: 10MB
         maxRequestSize = 1024 * 1024 * 50    // Max request size: 50MB
 )
+                                //Inheritance
 public class UpdateImageServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id")); //Data Extraction
-        Part filePart = request.getPart("imageFile"); //File Handling
+        int id = Integer.parseInt(request.getParameter("id"));
+        Part filePart = request.getPart("imageFile");
 
         String uploadPath = getServletContext().getRealPath("/") + "images/cabs/";
         File uploadDir = new File(uploadPath);
         if (!uploadDir.exists()) {
-            uploadDir.mkdirs(); //Directory Creation
+            uploadDir.mkdirs();
         }
 
         String existingImage = "images/cabs/no-image.png";
@@ -39,29 +40,28 @@ public class UpdateImageServlet extends HttpServlet {
             psSelect.setInt(1, id);
             ResultSet rs = psSelect.executeQuery();
             if (rs.next() && rs.getString("image") != null) {
-                existingImage = rs.getString("image"); //Database Interaction
+                existingImage = rs.getString("image");
             }
         } catch (Exception e) {
-            e.printStackTrace(); //Exception Handling
+            e.printStackTrace();
         }
 
         String filePath = existingImage;
         if (filePart != null && filePart.getSize() > 0) {
             String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             filePath = "images/cabs/" + fileName;
-            filePart.write(uploadPath + fileName); //File Writing
+            filePart.write(uploadPath + fileName);
         }
 
         try (Connection con = connectionProvider.getConnection()) {
             PreparedStatement psUpdate = con.prepareStatement("UPDATE cars SET image = ? WHERE id = ?");
-            psUpdate.setString(1, filePath); //Database Interaction
+            psUpdate.setString(1, filePath);
             psUpdate.setInt(2, id);
             psUpdate.executeUpdate();
         } catch (Exception e) {
-            e.printStackTrace(); //Exception Handling
+            e.printStackTrace();
         }
 
-        //Request Forwarding
         request.setAttribute("msg", "Image updated successfully");
         request.getRequestDispatcher("interfaces/admin/manage-car/updateimage.jsp?id=" + id).forward(request, response);
 
