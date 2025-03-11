@@ -159,7 +159,7 @@
             <td><%= rs.getString("status") %></td>
             <td>
                 <a href="editdriver.jsp?id=<%= rs.getInt("id") %>">Edit</a> |
-                <a style="color: red" href="deletedriver.jsp?id=<%= rs.getInt("id") %>"onclick="return confirm('Are you sure you want to delete this car?');">Delete</a>
+                <a style="color: red" href="deletedriver.jsp?id=<%= rs.getInt("id") %>"onclick="return confirm('Are you sure you want to delete this driver?');">Delete</a>
             </td>
 
         </tr>

@@ -130,64 +130,65 @@
     }
   </style>
 </head>
-<body>
 
 <body>
 
-<%
-  User currentUser = (User) session.getAttribute("currentUser");
-  boolean isLoggedIn = (currentUser != null);
+  <%
+    User currentUser = (User) session.getAttribute("currentUser");
+    boolean isLoggedIn = (currentUser != null);
 
-  Connection conn = connectionProvider.getConnection();
-  Statement stmt = conn.createStatement();
-  ResultSet rs = stmt.executeQuery("SELECT * FROM cars WHERE status='Available'");
-%>
+    Connection conn = connectionProvider.getConnection();
+    Statement stmt = conn.createStatement();
+    ResultSet rs = stmt.executeQuery("SELECT * FROM cars WHERE status='Available'");
+  %>
 
-<nav class="navbar">
-  <div class="links">
-    <% if (isLoggedIn) { %>
-    <a href="customer/customer-dashboard.jsp" class="nav-button">Go to Dashboard</a>
-    <% } else { %>
-    <a href="login.jsp" class="nav-button">Login</a>
-    <% } %>
-    <a href="register.jsp" class="nav-button">Register</a>
-    <a href="admin/admin-dashboard.jsp" class="nav-button">AD Dashboard</a>
-  </div>
-  <h1>Welcome to Mega City Cab</h1>
-  <p style="margin-top: 30px; text-transform: uppercase; font-size: 25px">Your trusted cab service in Colombo City.</p>
-</nav>
-
-<div class="container">
-  <div class="cab-list">
-
-    <% while (rs.next()) { %>
-    <div class="cab-item">
-      <img src="<%= request.getContextPath() + "/" + rs.getString("image") %>">
-      <hr style="background-color: black; height: 2px">
-      <h3><%= rs.getString("car_category") %></h3>
-      <p>Car No: <%= rs.getString("car_no") %></p>
-      <p>Driver ID: <%= rs.getString("driver_id") %></p>
-      <p>Seats: <%= rs.getString("seat_count") %></p>
-      <p><strong>LKR <%= rs.getString("fee") %> per KM</strong></p>
+  <nav class="navbar">
+    <div class="links">
 
       <% if (isLoggedIn) { %>
-      <a href="customer/Booking/booking.jsp?carId=<%= rs.getInt("id") %>" class="book-button">Book This Cab</a>
+      <a href="customer/customer-dashboard.jsp" class="nav-button">Go to Dashboard</a>
       <% } else { %>
-      <a href="login.jsp" class="book-button">Login to Book</a>
+      <a href="login.jsp" class="nav-button">Login</a>
+      <% } %>
+      <a href="register.jsp" class="nav-button">Register</a>
+
+    </div>
+    <h1>Welcome to Mega City Cab</h1>
+    <p style="margin-top: 30px; text-transform: uppercase; font-size: 25px">Your trusted cab service in Colombo City.</p>
+  </nav>
+
+  <div class="container">
+    <div class="cab-list">
+
+      <% while (rs.next()) { %>
+      <div class="cab-item">
+        <img src="<%= request.getContextPath() + "/" + rs.getString("image") %>">
+        <hr style="background-color: black; height: 2px">
+        <h3><%= rs.getString("car_category") %></h3>
+        <p>Car No: <%= rs.getString("car_no") %></p>
+        <p>Driver ID: <%= rs.getString("driver_id") %></p>
+        <p>Seats: <%= rs.getString("seat_count") %></p>
+        <p><strong>LKR <%= rs.getString("fee") %> per KM</strong></p>
+
+        <% if (isLoggedIn) { %>
+        <a href="customer/Booking/booking.jsp?carId=<%= rs.getInt("id") %>" class="book-button">Book This Cab</a>
+        <% } else { %>
+        <a href="login.jsp" class="book-button">Login to Book</a>
+        <% } %>
+      </div>
       <% } %>
     </div>
-    <% } %>
+
+    <div>
+      <a href="../index.jsp" style="margin-top: 30px" class="book-button">Back to Home</a>
+    </div>
   </div>
 
-  <div>
-    <a href="../index.jsp" style="margin-top: 30px" class="book-button">Back to Home</a>
-  </div>
-</div>
-
-<%
-  rs.close();
-  stmt.close();
-  conn.close();
-%>
+  <%
+    rs.close();
+    stmt.close();
+    conn.close();
+  %>
 </body>
+
 </html>
