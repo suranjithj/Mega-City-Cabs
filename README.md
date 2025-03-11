@@ -43,6 +43,8 @@ MegaCityCab <br>
 │   │   │   │   ├── Car.java <br>
 │   │   │   │   ├── Driver.java <br>
 │   │   │   │   ├── User.java <br>
+│   │   │   ├── services <br>
+│   │   │   │   ├── EmailService <br>
 │   │   ├── resources/ <br>
 │   │   ├── webapp/ <br>
 │   │   │   ├── assets/ <br>
@@ -95,3 +97,7 @@ MegaCityCab <br>
 │   │   │   ├── WEB-INF/ <br>
 │   │   │   │   ├── web.xml <br>
 │   │   │   ├── index.jsp <br>
+│   ├── test <br>
+│   │   ├── java <br>
+│   │   │   ├── dao <br>
+│   │   │   │   ├── UserDAOTest <br>
