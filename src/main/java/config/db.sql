@@ -6,7 +6,7 @@ CREATE TABLE drivers (
                          name VARCHAR(100),
                          phone VARCHAR(15),
                          nic VARCHAR(50) UNIQUE,
-                         status ENUM('available', 'busy') DEFAULT 'available'
+                         status VARCHAR(15)
 );
 
 -- 2. Create the users table
@@ -23,15 +23,18 @@ CREATE TABLE users (
 
 -- 3. Create the bookings table
 CREATE TABLE bookings (
-                          id INT AUTO_INCREMENT PRIMARY KEY,
-                          customer_id INT,
-                          driver_id INT,
+                          booking_id INT AUTO_INCREMENT PRIMARY KEY,
+                          username VARCHAR(255),
+                          customer_name VARCHAR(255),
+                          address VARCHAR(255),
+                          phone VARCHAR(15),
                           pickup_location VARCHAR(255),
                           destination VARCHAR(255),
-                          fee DECIMAL(10,2),
-                          status ENUM('pending', 'completed', 'cancelled') DEFAULT 'pending',
-                          FOREIGN KEY (customer_id) REFERENCES users(id),
-                          FOREIGN KEY (driver_id) REFERENCES drivers(id)
+                          car_no VARCHAR(20),
+                          fee VARCHAR(50),
+                          status VARCHAR(255),
+                          booking_date TIMESTAMP,
+                          bill VARCHAR(255)
 );
 
 -- 4. Create the cars table (driver_id changed to INT)
@@ -42,7 +45,8 @@ CREATE TABLE cars (
                       car_no VARCHAR(50) UNIQUE,
                       seat_count VARCHAR(20),
                       fee VARCHAR(50),
-                      image VARCHAR(255)
+                      image VARCHAR(255),
+                      status VARCHAR(50)
 );
 
 -- 5. Insert the admin details
